@@ -30,6 +30,9 @@ patches:
     target:
       kind: Job
       name: ingress-nginx-admission-patch
+  # ARREGLO CORRECTO DEL SERVICIO:
+  # Eliminamos la mutación del 'status' para evitar el OutOfSync.
+  # En su lugar, nos aseguramos de que se aplique como un NodePort limpio de Kubernetes.
   - patch: |
       apiVersion: v1
       kind: Service
@@ -37,9 +40,6 @@ patches:
         name: ingress-nginx-controller
       spec:
         type: NodePort
-        # Forzamos limpiar el campo para asegurar que ArgoCD vea que es un NodePort puro local
-        status:
-          loadBalancer: {}
     target:
       kind: Service
       name: ingress-nginx-controller
