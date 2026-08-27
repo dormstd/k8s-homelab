@@ -10,3 +10,6 @@ Instructions:
 
 3. Run:
 `k kustomize argocd | k apply --server-side --force-conflicts -f -`
+
+4. Deploy the argocd applications to argo so that it auto-syncs:
+`k kustomize argocd-resources | k apply -f -`
