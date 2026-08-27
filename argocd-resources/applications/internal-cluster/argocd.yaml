@@ -83,6 +83,8 @@ spec:
         repoURL: https://github.com/dormstd/k8s-homelab.git
         targetRevision: HEAD
       syncPolicy:
+        syncOptions:
+          - ServerSideApply=true
         automated:
           selfHeal: true
           prune: true
