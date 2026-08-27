@@ -4,3 +4,29 @@ kind: Kustomization
 
 resources:
   - https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+  
+# Añadimos los parches para que ArgoCD gestione correctamente los Jobs
+patches:
+  - patch: |
+      apiVersion: batch/v1
+      kind: Job
+      metadata:
+        name: ingress-nginx-admission-create
+        annotations:
+          argocd.argoproj.io/hook: PreSync
+          argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    target:
+      kind: Job
+      name: ingress-nginx-admission-create
+
+  - patch: |
+      apiVersion: batch/v1
+      kind: Job
+      metadata:
+        name: ingress-nginx-admission-patch
+        annotations:
+          argocd.argoproj.io/hook: PostSync
+          argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    target:
+      kind: Job
+      name: ingress-nginx-admission-patch
