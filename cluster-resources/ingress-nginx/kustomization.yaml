@@ -4,7 +4,7 @@ kind: Kustomization
 
 resources:
   - https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
-  
+
 # Añadimos los parches para que ArgoCD gestione correctamente los Jobs
 patches:
   - patch: |
@@ -30,3 +30,16 @@ patches:
     target:
       kind: Job
       name: ingress-nginx-admission-patch
+  - patch: |
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: ingress-nginx-controller
+      spec:
+        type: NodePort
+        # Forzamos limpiar el campo para asegurar que ArgoCD vea que es un NodePort puro local
+        status:
+          loadBalancer: {}
+    target:
+      kind: Service
+      name: ingress-nginx-controller
