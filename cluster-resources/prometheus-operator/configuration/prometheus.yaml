@@ -19,7 +19,7 @@ spec:
         values:
           - argocd
           - cloudprober
-          - prometheus-system
+          - prometheus
   securityContext:
     fsGroup: 2000
     runAsNonRoot: true
