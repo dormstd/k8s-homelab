@@ -6,3 +6,7 @@ namespace: prometheus-system
 
 resources:
   - https://github.com/prometheus-operator/prometheus-operator/releases/latest/download/bundle.yaml
+
+  - configuration
+  
+  - resources
