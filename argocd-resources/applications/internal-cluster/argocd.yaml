@@ -58,31 +58,31 @@ spec:
         automated:
           selfHeal: true
           prune: true
-#---
-#apiVersion: argoproj.io/v1alpha1
-#kind: ApplicationSet
-#metadata:
-#  name: argocd-applications
-#  annotations:
-#    argocd.argoproj.io/sync-wave: "50"
-#spec:
-#  generators:
-#    - list:
-#        elements:
-#          - cluster: in-cluster
-#  template:
-#    metadata:
-#      name: argocd-applications
-#    spec:
-#      destination:
-#        name: "{{cluster}}"
-#        namespace: argocd
-#      project: default
-#      source:
-#        path: argocd-resources/applications/deployed-applications
-#        repoURL: https://github.com/dormstd/k8s-homelab.git
-#        targetRevision: HEAD
-#      syncPolicy:
-#        automated:
-#          selfHeal: true
-#          prune: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argocd-applications
+  annotations:
+    argocd.argoproj.io/sync-wave: "50"
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: in-cluster
+  template:
+    metadata:
+      name: argocd-applications
+    spec:
+      destination:
+        name: "{{cluster}}"
+        namespace: argocd
+      project: default
+      source:
+        path: argocd-resources/applications
+        repoURL: https://github.com/dormstd/k8s-homelab.git
+        targetRevision: HEAD
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
