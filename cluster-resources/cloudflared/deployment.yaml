@@ -21,8 +21,6 @@ spec:
         image: cloudflare/cloudflared:2026.10.0 # Es buena práctica fijar una versión estable en producción
         args:
         - tunnel
-        - --config
-        - /etc/cloudflared/config/config.yaml
         - run
         env:
         # Inyecta tu token desde el Secret seguro que creamos al principio
