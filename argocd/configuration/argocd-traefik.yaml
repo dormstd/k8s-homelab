@@ -14,10 +14,10 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - argocd.127-0-0-1.nip.io
+        - argocd.rruizs.com
       secretName: argocd-server-tls
   rules:
-    - host: argocd.127-0-0-1.nip.io
+    - host: argocd.rruizs.com
       http:
         paths:
           - pathType: Prefix
