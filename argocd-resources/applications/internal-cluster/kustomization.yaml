@@ -7,5 +7,5 @@ namespace: argocd
 resources:
   - argocd.yaml
   - argo-rollouts.yaml
-  - ingress.yaml
+  #- ingress.yaml
   - prometheus.yaml
