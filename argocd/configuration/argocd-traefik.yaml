@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server-http-ingress
+  namespace: argocd
+  annotations:
+    # Anotaciones específicas de Traefik para backend HTTPS y passthrough
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/service.serverstransport: argocd-argocd-server-transport@kubernetescrd
+    # Anotaciones de cert-manager
+    cert-manager.io/cluster-issuer: "cloudflare-issuer"
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - argocd.127-0-0-1.nip.io
+      secretName: argocd-server-tls
+  rules:
+    - host: argocd.127-0-0-1.nip.io
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  name: https
