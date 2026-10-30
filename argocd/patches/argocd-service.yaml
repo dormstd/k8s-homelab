@@ -4,4 +4,4 @@ kind: Service
 metadata:
   name: argocd-server
 spec:
-  clusterIP: 10.96.0.100
+  clusterIP: 10.43.0.100
