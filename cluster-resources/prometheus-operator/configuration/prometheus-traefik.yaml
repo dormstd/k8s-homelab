@@ -9,9 +9,14 @@ metadata:
 #    cert-manager.io/cluster-issuer: "cloudflare-issuer"
 #    acme.cert-manager.io/dns01-provider: cloudflare
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - prometheus.rruizs.com
+      secretName: argocd-server-tls
   rules:
-    - http:
+    - host: prometheus.rruizs.com
+      http:
         paths:
           - pathType: Prefix
             path: /
@@ -20,7 +25,6 @@ spec:
                 name: prometheus-operated
                 port:
                   number: 9090
-      host: prometheus.127-0-0-1.nip.io
   #tls:
   #  - hosts:
   #    - prometheus.127-0-0-1.nip.io
